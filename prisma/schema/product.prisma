@@ -1,0 +1,10 @@
+model Product {
+    id          String   @id @unique @default(uuid())
+    title       String
+    description String
+    updatedAt   DateTime @updatedAt
+    createdAt   DateTime @default(now())
+
+    user    User   @relation(fields: [user_id], references: [id])
+    user_id String
+}
