@@ -13,6 +13,8 @@
     "unit:test": "vitest",
     "create:base:role": "npx ts-node scripts/createBaseRole/createBaseRole.ts",
     "create:base:user": "npx ts-node scripts/createAdminUser/createAdminUser.ts",
+    "create:base:fake": "npx ts-node scripts/createBaseRole/createBaseRole.ts",
+    "create:base:product": "npx ts-node scripts/createAdminUser/createAdminUser.ts",
     "docker:linux": "docker build -t saveproduct . --platform=linux/amd64",
     "docker:tar": "docker save saveproduct > image-linux.tar"
   },

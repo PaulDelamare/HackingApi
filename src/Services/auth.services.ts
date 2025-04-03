@@ -3,13 +3,24 @@ import jwt, { JwtPayload } from "jsonwebtoken"
 import { hashPassword, verifyPassword } from "../Utils/hashPassword/hashPassword";
 import { UserServices } from "./user.service";
 import { User } from "@prisma/client";
+import { throwError } from "../Utils/errorHandler/errorHandler";
 
 
 const registerService = async (validatedData: Pick<User, 'email' | 'password'>) => {
 
     const { password, ...data } = validatedData;
 
-    return await bdd.user.create({ data: { ...data, password: await hashPassword(password), role_id: "0ff2b4bb-af5a-4421-ae73-0cb2cdd8cd43" } })
+    const idUserRole = await bdd.roles.findFirst({
+        where: {
+            role_name: "user"
+        }
+    })
+
+    if (!idUserRole) {
+        return throwError(404, "Rôle non trouvé")
+    }
+
+    return await bdd.user.create({ data: { ...data, password: await hashPassword(password), role_id: idUserRole.id } })
 }
 
 
