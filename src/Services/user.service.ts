@@ -21,12 +21,23 @@ const findAllUser = async () => {
 }
 
 const deleteUser = async (validatedId: Pick<User, 'id'>) => {
+    const user = await checkExistUser({ id: validatedId.id });
+
+    if (user.role.role_name === 'admin') {
+        return throwError(403, "Cannot delete admin users");
+    }
+
+    await bdd.product.deleteMany({
+        where: {
+            user_id: validatedId.id
+        }
+    })
 
     return await bdd.user.delete({
         where: {
             id: validatedId.id
         }
-    })
+    });
 }
 
 export const UserServices = {
