@@ -31,6 +31,8 @@ import passportConfig from '../config/passport.config';
  */
 
 const configureMiddleware = (app: express.Application) => {
+
+    require('dotenv').config()
     // Use this middleware to parse the incoming request bodies
     app.use(express.json());
 
