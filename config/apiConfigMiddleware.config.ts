@@ -35,14 +35,15 @@ const configureMiddleware = (app: express.Application) => {
     app.use(express.json());
 
     // Cors for the API
-    app.use(cors(
-        {
-            origin: 'http://localhost:4545 | https://transaction.posnet.fr',
-            methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-            allowedHeaders: ['Content-Type', 'Authorization'],
-            credentials: true
-        }
-    ));
+    app.use(cors({
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],
+        allowedHeaders: ['*'],
+        exposedHeaders: ['*'],
+        credentials: true,
+        maxAge: 86400,
+        preflightContinue: true
+    }));
 
     // Middleware for the api security
     app.use(helmet({
